@@ -1,9 +1,9 @@
 
 
-function TemaCard({ nome, imagem }) {
+function TemaCard({ nome, imagem, onClick }) {
   
     return (
-    <div className="temas">
+    <div className="temas" onClick={onClick}>
       <div
         className="icone"
         style={{ backgroundImage: `url(${imagem})` }}
@@ -12,5 +12,4 @@ function TemaCard({ nome, imagem }) {
     </div>
   );
 }
-
 export default TemaCard;

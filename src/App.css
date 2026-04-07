@@ -208,7 +208,7 @@
   width: 50px;
   height: 50px;
 
-  background-image: url('./png-transparent-minecraft-macos-bigsur-icon-thumbnail.png');
+  background-image: url('/quiz-with-openai/minecraft.png');
   background-size: cover;
   padding: 10px;
   margin: 0;
@@ -223,13 +223,14 @@
 .logo {
   width: 140px;
   height: 120px;
-  background-image: url("public/Tesla e Einstein_ energia e criatividade.png");
+  background-image: url("/quiz-with-openai/logotipo.png");
   background-size: cover;
   margin: 0;
   padding: 0;
-  margin-right: 20rem;
+  margin-right: 10rem;
 }
 .titulo {
+  background-color: rgba(31, 30, 48, 0.801);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -237,7 +238,45 @@
   gap: 20px;
   font-weight: bold;
   color: #ffffffc1;
-  margin-top: 10px;
-  height: auto;
+  margin-top: 0px;
+  height: 90px;
   padding: 0;
+}
+
+.resultado{
+  background-color: rgb(0, 255, 255);
+}
+.geral{ 
+display: flex;
+align-items: center;
+justify-content: center;
+
+}
+.conteudoQuiz{
+  width: 250%;
+  height: 30rem;
+  background-color: bisque;
+}
+.informacoes{
+  width: 100%;
+  height: 30rem;
+  background-color: brown;
+}
+.textoQuiz{
+  height: 85%;
+  background-color: blueviolet;
+  overflow-y: auto; 
+}
+.alternativas{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5%;
+  padding: 1%;
+  background-color: yellow;
+}
+.alternativa{
+  background-color: violet;
+  padding: 1rem;
+  width: 6rem;
 }

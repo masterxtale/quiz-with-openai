@@ -1,6 +1,7 @@
 import { useState } from "react";
 import "./App.css";
-import TemaCard from "./MyComponents.jsx";
+import TemaCard from "./components/Temacard.jsx";
+import BodyQuiz from "./components/bodyQuiz.jsx";
 
 
 function App() {
@@ -20,6 +21,22 @@ function App() {
     { nome: "Curiosidades", imagem: "" }
   ];
 
+  async function receberQuiz(tema) {
+    const resposta = await fetch("http://localhost:3001/quiz" , {
+      method: "POST",
+      headers: {
+        "content-type": "application/JSON"
+      },
+      body: JSON.stringify({ tema })
+    });
+    const data = await resposta.json();
+    setQuiz(data);
+
+    const gTemas = document.querySelector(".gridTemas");
+    gTemas.style.display = "none";
+  }
+  
+  const [quiz, setQuiz] = useState(null);
 
   return (
     <div className="main">
@@ -33,9 +50,19 @@ function App() {
         <div className="gridTemas">
 
           {temas.map((tema) => (
-            <TemaCard nome={tema.nome} imagem={tema.imagem} />
+            <TemaCard onClick={() => receberQuiz(tema.nome.toLowerCase())} nome={tema.nome} imagem={tema.imagem} />
           ))}
 
+        </div>
+        <div className="bodyQuiz">
+
+          {quiz && (
+          <div className="resultado">
+            <p>{quiz.mensagem}</p>
+            <BodyQuiz/>
+          </div>
+          )}
+          
         </div>
       </>
     </div>
