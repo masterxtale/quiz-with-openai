@@ -22,21 +22,27 @@ function App() {
   ];
 
   async function receberQuiz(tema) {
+    setTemaAtual(tema)
     const resposta = await fetch("http://localhost:3001/quiz" , {
       method: "POST",
       headers: {
-        "content-type": "application/JSON"
+        "Content-Type": "application/json"
       },
       body: JSON.stringify({ tema })
     });
     const data = await resposta.json();
     setQuiz(data);
-
-    const gTemas = document.querySelector(".gridTemas");
-    gTemas.style.display = "none";
+    
   }
+
+  function proximaPergunta(){
+    if (temaAtual) {
+    receberQuiz(temaAtual);   // busca outra pergunta do mesmo tema
+  }
+  };
   
   const [quiz, setQuiz] = useState(null);
+  const [temaAtual, setTemaAtual] = useState("");
 
   return (
     <div className="main">
@@ -47,26 +53,30 @@ function App() {
       <>
         <h2>Escolha um tema</h2>
 
+        {!quiz &&
         <div className="gridTemas">
-
           {temas.map((tema) => (
             <TemaCard onClick={() => receberQuiz(tema.nome.toLowerCase())} nome={tema.nome} imagem={tema.imagem} />
           ))}
+        </div>}
 
-        </div>
         <div className="bodyQuiz">
-
           {quiz && (
           <div className="resultado">
-            <p>{quiz.mensagem}</p>
-            <BodyQuiz/>
+            <BodyQuiz quiz={quiz} onProximaPergunta={proximaPergunta}/>
           </div>
-          )}
-          
+          )}          
         </div>
       </>
+
+
     </div>
+
 
   );
 }
+
+
 export default App;
+
+

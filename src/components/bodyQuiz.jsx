@@ -1,17 +1,54 @@
-function BodyQuiz({}){
+import { useState } from "react";
 
-  return(
+function BodyQuiz({ quiz, onProximaPergunta }) {
+
+  const [mensagem, setMensagem] = useState("");
+
+  // Função que verifica a resposta
+  function Verificar(alternativaClicada) {
+    if (alternativaClicada === quiz.resposta) {
+      setMensagem("CORRETO")
+    } else {
+      setMensagem("ERRADO")
+    }
+    setTimeout( ()=> {onProximaPergunta();}, 2000);
+  }
+
+  return (
     <div className="geral">
-      <div className="conteudoQuiz">
-          <div className="textoQuiz">TEXTO QUIZ</div>
-          <div className="alternativas">
-            <div className="alternativa">a</div>
-            <div className="alternativa">B</div>
-            <div className="alternativa">C</div>
-            <div className="alternativa">D</div></div>
-      </div>             
       <div className="informacoes"></div>
+      <div className="conteudoQuiz">
+        
+        <div className="textoQuiz">
+          {quiz.pergunta}
+        
+          {mensagem && (
+            <div className="mensagem">
+              {mensagem}
+            </div>
+          )}
+        
+        
+        
+        </div>
+
+        <div className="alternativas">
+          {quiz.alternativas.map((alternativa, index) => (
+            <div 
+              key={index} 
+              className="alternativa"
+              onClick={() => Verificar(alternativa)}   // ← Correto!
+            >
+              {alternativa}
+            </div>
+          ))}
+        </div>
+
+      </div>
+
+      
     </div>
   );
 }
+
 export default BodyQuiz;
