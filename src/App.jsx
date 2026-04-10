@@ -23,7 +23,7 @@ function App() {
   async function receberQuiz(tema) {
     setTemaAtual(tema);
     try {
-      const resposta = await fetch("http://localhost:3001/quiz", {
+      const resposta = await fetch("https://backend-quiz-with-openai.onrender.com/quiz", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ tema })

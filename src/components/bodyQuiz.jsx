@@ -28,7 +28,8 @@ function BodyQuiz({ quiz, onProximaPergunta, historico, onVoltar }) {
   return (
     <div className="geral">
         <div className="informacoes">
-          Pergunta {historico.length + 1} de 10
+          <div className="botaoVoltar" onClick={() => onVoltar()}>VOLTAR</div>
+          <div>Pergunta {historico.length + 1} de 10</div>
         </div>
 
         <div className="conteudoQuiz">
