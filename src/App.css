@@ -204,89 +204,185 @@
   margin: 0;
 }
 
+/* ====================== Ícones e Logos ====================== */
 .icone {
-  width: 50px;
-  height: 50px;
-
+  width: 20px;
+  height: 20px;
   background-image: url('/quiz-with-openai/minecraft.png');
   background-size: cover;
-  padding: 10px;
-  margin: 0;
+  background-position: center;
+  border-radius: 8px;           /* opcional, deixa mais bonito */
 }
 
+.logo {
+  width: 10dvw;
+  height: 10dvw;
+  max-width: 7rem;
+  max-height: 7rem;
+  background-image: url("/quiz-with-openai/logotipo.png");
+  background-size: cover;
+  background-position: center;
+  flex-shrink: 0;               /* evita que a logo encolha */
+}
+
+/* ====================== Grid de Temas ====================== */
 .gridTemas {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
   gap: 30px;
   justify-items: center;
+  padding: 20px;
 }
-.logo {
-  width: 140px;
-  height: 120px;
-  background-image: url("/quiz-with-openai/logotipo.png");
-  background-size: cover;
-  margin: 0;
-  padding: 0;
-  margin-right: 10rem;
-}
+
+/* ====================== Título ====================== */
 .titulo {
-  background-color: rgba(31, 30, 48, 0.801);
+  background-color: rgba(31, 30, 48, 0.90);
   display: flex;
   justify-content: center;
   align-items: center;
-  font-size: 24px;
-  gap: 20px;
+  gap: 2vw;
+  font-size: clamp(10px, 3vw, 20px);
   font-weight: bold;
-  color: #ffffffc1;
-  margin-top: 0px;
-  height: 90px;
-  padding: 0;
-}
-
-.resultado{
-  background-color: rgb(0, 255, 255);
-}
-.geral{ 
-display: grid;
-align-items: center;
-justify-content: center;
-
-}
-.conteudoQuiz{
-  width: 62.5rem;
-  height: 30rem;
-  background: linear-gradient(to right, rgb(0, 0, 0), rgb(47, 47, 47));
-}
-.informacoes{
-  width: 100%;
-  height: 5rem;
-  background-color: brown;
-}
-.textoQuiz{
+  color: #eee;
   height: auto;
-  overflow-y: auto; 
+  margin: 0;
+  padding: 0 20px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3); /* dá uma profundidade */
+}
+
+/* ====================== Quiz Geral ====================== */
+.geral {
+  display: grid;
+  place-items: center;           /* centraliza tanto horizontal quanto vertical */
+  min-height: 40vh;
+  padding: 20px;
+  gap: 4dvh;
+}
+
+.conteudoQuiz {
+  width: 90%;
+  height: auto;
+  max-width: 1000px;           /* alterado de height fixo */
+  background: linear-gradient(to right, #564d937f, #2122459c);
+  border-radius: 16px;
+  padding: 20px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+}
+
+/* ====================== Informações ====================== */
+.informacoes {
+  width: 100%;
+  height: 7dvh;
+  background-color: #433e6946;     /* marrom mais bonito */
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-weight: bold;
+  margin-bottom: 15px;
+}
+
+/* ====================== Texto da Pergunta ====================== */
+.textoQuiz {
   font-family: Arial, Helvetica, sans-serif;
-  color: rgb(0, 0, 0);
-  background-color: rgb(255, 255, 255);
+  color: #ffffff;
+  padding: 20px;
+  border-radius: 12px;
+  font-size: clamp(14px, 5vw, 32px);
+  line-height: 1.5;
+  
 }
-.alternativas{
+
+/* ====================== Alternativas ====================== */
+.alternativas {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 5%;
-  padding: 1%;
+  flex-direction: column;
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
+  width: 90%;
+  gap: 1rem;
+  min-width:20rem;
 }
-.alternativa{
+
+.alternativa {
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: rgba(255, 255, 255, 0.747);
-  padding: 15 px;
-  width: 30rem;
-  height: 4rem;
-  color: black;
-  font-size: 1.3rem;
+  background-color: rgba(196, 196, 196, 0.9);
+  padding: 0px 0px;
+  width: 100%;
+  height: 50%;
+  max-width: 1000px;
+  min-height: 58px;
+  padding: 1dvh;
+  color: #222;
+  font-size: clamp(14px, 5vw, 27px);
   border-radius: 15px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+  text-align: center;
+  border: 4px solid;
+  border-color: #7b7b7b;
 }
 
+.alternativa:hover {
+  background-color: rgba(255, 255, 255, 1);
+  transform: size(-3px);
+  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+}
 
+/* ====================== Resultado ====================== */
+.resultado {
+  background-color: rgb(0, 255, 255);
+  padding: 15px;
+  border-radius: 12px;
+  text-align: center;
+  font-weight: bold;
+  color: #000;
+}
+
+/* ====================== Mensagem de Feedback ====================== */
+.mensagem {
+  padding: 15px 20px;
+  border-radius: 12px;
+  text-align: center;
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin-bottom: 15px;
+}
+
+.correto {
+  background-color: #4ade80;
+  color: #14532d;
+}
+
+.errado {
+  background-color: #f87171;
+  color: #7f1d1d;
+}
+
+/* ====================== Alternativas com feedback ====================== */
+.alternativa.correta {
+  background-color: #4ade80 !important;
+  color: #14532d;
+  border: 3px solid #22c55e;
+}
+
+.alternativa.errada {
+  background-color: #f87171 !important;
+  color: #7f1d1d;
+  border: 3px solid #ef4444;
+}
+
+/* Desabilita clique depois de responder */
+.alternativa {
+  transition: all 0.3s ease;
+}
+
+.alternativa:hover:not(.correta):not(.errada) {
+  transform: translateY(-3px);
+}

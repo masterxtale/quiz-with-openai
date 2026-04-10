@@ -1,52 +1,66 @@
 import { useState } from "react";
 
-function BodyQuiz({ quiz, onProximaPergunta }) {
-
+function BodyQuiz({ quiz, onProximaPergunta, historico, onVoltar }) {
   const [mensagem, setMensagem] = useState("");
+  const [respostaSelecionada, setRespostaSelecionada] = useState(null);
 
-  // Função que verifica a resposta
+  // Correção: só chama onVoltar quando realmente completar as 10 perguntas
+  if (historico.length >= 10) {
+    onVoltar();
+    return null;
+  }
+
   function Verificar(alternativaClicada) {
-    if (alternativaClicada === quiz.resposta) {
-      setMensagem("CORRETO")
-    } else {
-      setMensagem("ERRADO")
-    }
-    setTimeout( ()=> {onProximaPergunta();}, 2000);
+    if (respostaSelecionada) return;
+
+    setRespostaSelecionada(alternativaClicada);
+
+    const estaCorreta = alternativaClicada === quiz.resposta;
+    setMensagem(estaCorreta ? "CORRETO" : "ERRADO");
+
+    setTimeout(() => {
+      setMensagem("");
+      setRespostaSelecionada(null);
+      onProximaPergunta();
+    }, 1800);
   }
 
   return (
     <div className="geral">
-      <div className="informacoes"></div>
-      <div className="conteudoQuiz">
-        
-        <div className="textoQuiz">
-          {quiz.pergunta}
-        
+        <div className="informacoes">
+          Pergunta {historico.length + 1} de 10
+        </div>
+
+        <div className="conteudoQuiz">
           {mensagem && (
-            <div className="mensagem">
+            <div className={`mensagem ${mensagem === "CORRETO" ? "correto" : "errado"}`}>
               {mensagem}
             </div>
           )}
-        
-        
-        
+
+          <div className="textoQuiz">
+            {quiz.pergunta}
+          </div>
         </div>
 
         <div className="alternativas">
-          {quiz.alternativas.map((alternativa, index) => (
-            <div 
-              key={index} 
-              className="alternativa"
-              onClick={() => Verificar(alternativa)}   // ← Correto!
-            >
-              {alternativa}
-            </div>
-          ))}
+          {quiz.alternativas.map((alternativa, index) => {
+            const isSelected = respostaSelecionada === alternativa;
+            const isCorrect = alternativa === quiz.resposta;
+
+            return (
+              <div
+                key={index}
+                className={`alternativa 
+                  ${isSelected && isCorrect ? 'correta' : ''}
+                  ${isSelected && !isCorrect ? 'errada' : ''}`}
+                onClick={() => Verificar(alternativa)}
+              >
+                {alternativa}
+              </div>
+            );
+          })}
         </div>
-
-      </div>
-
-      
     </div>
   );
 }
