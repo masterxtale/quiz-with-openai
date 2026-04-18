@@ -22,6 +22,7 @@ function App() {
 
   async function receberQuiz(tema) {
     setTemaAtual(tema);
+    setLoading(true);
     try {
       const resposta = await fetch("https://backend-quiz-with-openai.onrender.com/quiz", {
         method: "POST",
@@ -33,6 +34,8 @@ function App() {
       setEmQuiz(true);
     } catch (error) {
       console.error("Erro ao buscar quiz:", error);
+    } finally{
+      setLoading(false);
     }
   }
 
@@ -58,6 +61,7 @@ function App() {
   const [temaAtual, setTemaAtual] = useState("");
   const [historico, setHistorico] = useState([]);
   const [emQuiz, setEmQuiz] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   return (
     <div className="main">
@@ -68,17 +72,27 @@ function App() {
 
       {!emQuiz && (
         <>
-          <h2>Escolha um tema</h2>
-          <div className="gridTemas">
-            {temas.map((tema) => (
-              <TemaCard 
-                key={tema.nome}
-                onClick={() => receberQuiz(tema.nome.toLowerCase())} 
-                nome={tema.nome} 
-                imagem={tema.imagem} 
-              />
-            ))}
-          </div>
+          
+          {loading ? (
+            <div style={{display:"grid", width:"100%", height:"100%", alignItems:"center", justifyContent:"center", marginTop:"150px"}}>
+            <div style={{display:"flex", width:"300px", justifyContent:"center", alignItems:"center"}}><div className="loader"></div></div>
+            <h2 style={{width:"300px"}}>Gerando quiz com IA</h2>
+            <p>Isso pode demorar um pouco.</p>
+            </div>
+          ) : (
+            <div>
+              <h2>Escolha um tema</h2>
+            <div className="gridTemas">
+              {temas.map((tema) => (
+                <TemaCard
+                  key={tema.nome}
+                  onClick={() => receberQuiz(tema.nome.toLowerCase())}
+                  nome={tema.nome}
+                  imagem={tema.imagem}
+                />
+              ))}
+            </div></div>
+          )}
         </>
       )}
 
@@ -95,3 +109,5 @@ function App() {
 }
 
 export default App;
+
+
